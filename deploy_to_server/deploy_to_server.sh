@@ -1,10 +1,14 @@
 #!/bin/bash
 
+# how to use:
+# 1. go to Terminal
+# 2. > cd yahtzee
+# 3. > deploy_to_server/deploy_to_server.sh ADD_COMMIT_HASH_HERE
+# example: deploy_to_server/deploy_to_server.sh 6fa4b7
 
-# 6 digit commit hash in GitHub
+
 commit_hash=$1
-
-repo_url=https://github.com/Beccall/yahtzee0.git
+repo_url=https://github.com/Beccall/python-yahtzee.git
 server_app_location=/home/ubuntu/becca/yahtzee
 server_secret_key=/Users/rebeccawatkins/yahtzee/deploy_to_server/useast2_20171030.pem
 
@@ -12,7 +16,7 @@ server_secret_key=/Users/rebeccawatkins/yahtzee/deploy_to_server/useast2_2017103
 ssh -tt -p 2222 -i $server_secret_key ubuntu@levell.xyz <<ENDSSH
 
 # kill old server instance
-kill $(ps aux | grep '[f]lask run' | awk '{print $2}')
+kill \$(ps aux | grep '[f]lask run' | awk '{print \$2}')
 
 # delete old folder
 sudo rm -r $server_app_location
