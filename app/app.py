@@ -28,7 +28,7 @@ def yahtzee():
         return render_template("index.html", turn=session["turn"])
     if request.method == "POST":
         session["options"] = []
-        session["scorecard"] = ''
+        session['scorecard'] = session["play"].score_sheet()
         feedback = request.form.getlist("feedback")
         if not feedback:
             prompt = "You must select your dice OR press 'Keep all dice'"
@@ -48,14 +48,14 @@ def yahtzee():
                 session["keep_dice"].append(dice)
         if feedback[0] == "keep all dice" or session["turn"] == 3:
             session["turn"] = 0
-            session['scorecard'] = session["play"].score_sheet()
+            # session['scorecard'] = session["play"].score_sheet()
             session["play"].count(session["keep_dice"])
             session["options"] = session["play"].options()
 
             return redirect('/scorecard')
 
         return render_template("index.html", feedback=feedback, roll_dice=roll_dice, turn=session["turn"],
-                               keep_dice=session["keep_dice"], scorecard=session["scorecard"],
+                               keep_dice=session["keep_dice"], score_sheet=session["scorecard"],
                                prompt=prompt, options=session["options"], count=count)
 
 

@@ -42,7 +42,7 @@ To proceed to scoreboard, select "keep dice"
                 <img class="dice" src="static/6face.jpg">
                 {% endif %}
                 <br>
-                <input class="form-check-input" type="checkbox" value="{{dice}}" id="defaultCheck{{ loop.index }}" name="feedback">
+                <input class="form-check-input dice-check" type="checkbox" value="{{dice}}" id="defaultCheck{{ loop.index }}" name="feedback">
 
             </label>
 
@@ -60,11 +60,17 @@ To proceed to scoreboard, select "keep dice"
     </ul>
 </form>
 
-
 {% endblock %}
-
-
 {% block body %}
+
+
+{% if score_sheet %}
+{% for name, score in score_sheet.items() %}
+{{name}}: {{score}}
+{% endfor %}
+{% endif %}
+
+
 
 
 

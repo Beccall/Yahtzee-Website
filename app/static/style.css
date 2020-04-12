@@ -49,20 +49,49 @@ list-style: none;
 font-weight: Bold;
 }
 
-.title
+
+table
 {
-font-weight = bold;
+font-family: Courier New;
+font-size: 16px;
+width: 240px;
 }
 
 
-.table
+.name
 {
-font-size: 12px;
-width: 200px;
+padding-left: 10px;
 }
 
-.form-check-input
+td
+{
+height: 25px;
+padding-left: 10px;
+}
+
+.point-option
+{
+margin-left:8 px;
+}
+
+.dice-check
 {
 margin-left:18px;
+
 }
 
+.alert
+{
+font-size: 12px;
+}
+
+.instructions
+{
+font-size: 16px;
+}
+
+
+.final_dice
+{
+margin-left:25px;
+}
