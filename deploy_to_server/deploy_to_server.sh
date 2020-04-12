@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ssh -i /Users/rebeccawatkins/yahtzee/deploy_to_server/useast2_20171030.pem -p 2222 ubuntu@levell.xyz
+
 # how to use:
 # 1. go to Terminal
 # 2. > cd yahtzee
@@ -34,7 +36,7 @@ export FLASK_APP=yahtzee/app.py
 nohup flask run --host=0.0.0.0 --port=5000 &
 
 # hack - flask run needs a little time
-sleep 5
-exit
+#sleep 5
+#exit
 
 ENDSSH

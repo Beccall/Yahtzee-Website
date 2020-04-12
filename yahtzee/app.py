@@ -33,6 +33,8 @@ def yahtzee():
         if not feedback:
             prompt = "You must select your dice OR press 'Keep all dice"
             feedback = "ROLL AGAIN"
+        elif len(feedback) > 1 and "keep all dice" in feedback:
+            prompt = "You must select your dice OR press 'Keep all dice"
         elif feedback[0] == "ROLL DICE":
             session["turn"] = 1
             roll_dice = session["play"].roll(5)
@@ -40,15 +42,13 @@ def yahtzee():
             for dice in roll_dice:
                 session["keep_dice"].append(dice)
         elif feedback[0] != "ROLL AGAIN" and feedback[0] != "keep all dice" and session["turn"] < 4:
-            if len(feedback) > 1 and "keep all dice" in feedback:
-                prompt = "You must select your dice OR press 'Keep all dice"
-            else:
-                for di in feedback:
-                    session["keep_dice"].remove(int(di))
-                    session["turn"] += 1
-                    roll_dice = session["play"].roll(len(feedback))
-                    for dice in roll_dice:
-                        session["keep_dice"].append(dice)
+            for di in feedback:
+                session["keep_dice"].remove(int(di))
+                session["turn"] += 1
+                roll_dice = session["play"].roll(len(feedback))
+            for dice in roll_dice:
+                session["keep_dice"].append(dice)
+
         if feedback[0] == "keep all dice" or session["turn"] == 3:
             session["turn"] = 0
             # session['scorecard'] = session["play"].score_sheet()
@@ -64,7 +64,7 @@ def yahtzee():
 
 @app.route('/scorecard', methods=["GET", "POST"])
 def scorecard():
-    prompt=''
+    prompt = ''
     if request.method == "GET":
         return render_template('scorecard.html', keep_dice=session["keep_dice"], options=session["options"],
                                score_sheet=session['scorecard'])
