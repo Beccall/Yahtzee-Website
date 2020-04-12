@@ -1,0 +1,68 @@
+body
+{
+background-color: pink;
+}
+
+.add_space
+{
+text-align:center;
+}
+
+.roll
+{
+margin-top: 30px;
+
+}
+
+
+.checked
+{
+ color: black;
+}
+
+.dice
+{
+width: 50px;
+
+}
+
+.list
+{
+display: inline;
+list-style: none;
+}
+
+.jumbotron
+{
+  background-color: hsla(0, 100%, 50%, 0.3);
+;
+}
+
+.index_buttons
+{
+list-style: none;
+
+}
+
+.display-4
+{
+font-weight: Bold;
+}
+
+.title
+{
+font-weight = bold;
+}
+
+
+.table
+{
+font-size: 12px;
+width: 200px;
+}
+
+.form-check-input
+{
+margin-left:18px;
+}
+

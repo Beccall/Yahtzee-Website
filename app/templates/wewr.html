@@ -1,0 +1,84 @@
+<!--<form action="{{ url_for('yahtzee') }}" method="post">-->
+<!--    <input class="btn btn-primary" type="submit" value="1" name="amount">-->
+<!--    <input class="btn btn-primary" type="submit" value="2" name="amount">-->
+<!--    <input class="btn btn-primary" type="submit" value="3" name="amount">-->
+<!--    <input class="btn btn-primary" type="submit" value="4" name="amount">-->
+<!--    <input class="btn btn-primary" type="submit" value="5" name="amount">-->
+<!--</form>-->
+
+{% if turn == 0 %}
+<form action="{{ url_for('yahtzee') }}" method="post">
+    <input class="btn btn-primary" type="submit" value="Want to roll? ">
+</form>
+{% else %}
+Want to roll again?
+<form action="{{ url_for('yahtzee') }}" method="post">
+    <input class="btn btn-primary" name="roll_again" type="submit" value="yes">
+</form>
+{% endif %}
+{{ turn }}
+{{ message }}
+{{ roll_dice }}
+
+
+<form action="{{ url_for('yahtzee') }}" method="post">
+    <small class="form-text text-muted">How many to re-roll? </small>
+    <input class="btn btn-primary" type="submit" value="1" name="feedback">
+    <input class="btn btn-primary" type="submit" value="2" name="feedback">
+    <input class="btn btn-primary" type="submit" value="3" name="feedback">
+    <input class="btn btn-primary" type="submit" value="4" name="feedback">
+    <input class="btn btn-primary" type="submit" value="5" name="feedback">
+</form>
+
+{% for dice in keep_dice%}
+<div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" id="customSwitch1" value={{dice}} name="feedback">
+    <label class="custom-control-label" for="customSwitch1">{{ dice }}</label>
+</div>
+{% endfor %}
+
+
+<div class="container">
+    <div class="row">
+        <form method="get">
+            {% for dice in keep_dice%}
+            <div class="form-group">
+                {% if dice == 1%}
+                <div class="col-md-3"><label class="btn btn-primary"><img src="oneface.png" alt="..." class="img-thumbnail img-check"><input type="checkbox" name="feedback" id="item4" value={{dice}} class="hidden" autocomplete="off"></label></div>
+                {% elif dice == 2%}
+                <div class="col-md-3"><label class="btn btn-primary"><img src="twoface.png" alt="..." class="img-thumbnail img-check"><input type="checkbox" name="feedback" id="item4" value={{dice}} class="hidden" autocomplete="off"></label></div>
+                {% elif dice == 3%}
+                <div class="col-md-3"><label class="btn btn-primary"><img src="facethree.png" alt="..." class="img-thumbnail img-check"><input type="checkbox" name="feedback" id="item4" value={{dice}} class="hidden" autocomplete="off"></label></div>
+                {% elif dice == 4%}
+                <div class="col-md-3"><label class="btn btn-primary"><img src="facefour.png" alt="..." class="img-thumbnail img-check"><input type="checkbox" name="feedback" id="item4" value={{dice}} class="hidden" autocomplete="off"></label></div>
+                {% elif dice == 5%}
+                <div class="col-md-3"><label class="btn btn-primary"><img src="facefive.png" alt="..." class="img-thumbnail img-check"><input type="checkbox" name="feedback" id="item4" value={{dice}} class="hidden" autocomplete="off"></label></div>
+                {% else%}
+                <div class="col-md-3"><label class="btn btn-primary"><img src="facesix.png" alt="..." class="img-thumbnail img-check"><input type="checkbox" name="feedback" id="item4" value={{dice}} class="hidden" autocomplete="off"></label></div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <input type="submit" value="Check Item" class="btn btn-success">
+
+        </form>
+    </div>
+</div>
+
+<!--    <div class="btn-group-toggle" data-toggle="buttons">-->
+
+<!--    {% for dice in keep_dice %}-->
+<!--        <label class="btn btn-secondary ">-->
+<!--            <input type="checkbox" name="feedback" style width=40px value = {{dice}}> {{dice}}-->
+<!--        </label>-->
+<!--    {% endfor %}-->
+<!--    </div>-->
+
+<!--    <button> Enter </button>-->
+</form>
+
+
+<div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" id="customSwitch{{dice}}" value={{dice}} name="feedback">
+    <label class="custom-control-label" for="customSwitch{{dice}}">{{ dice }}</label>
+</div>

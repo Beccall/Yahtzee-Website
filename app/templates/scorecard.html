@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block header %}
+{% if not options %}
+<h1>Let's play another round! </h1>
+<form action="{{ url_for('yahtzee') }}" method="post">
+    <input class="btn btn-dark roll" type="submit" value="ROLL DICE" name="feedback">
+</form>
+
+{%endif%}
+{% if keep_dice %}
+ Your final dice:
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div>
+    {% for dice in keep_dice %}
+    {% if dice == 1 %}
+    <img class="dice" src="static/1face.jpg">
+    {% elif dice == 2 %}
+    <img class="dice" src="static/2face.jpg">
+    {% elif dice == 3 %}
+    <img class="dice" src="static/3face.jpg">
+    {% elif dice == 4 %}
+    <img class="dice" src="static/4face.jpg">
+    {% elif dice == 5 %}
+    <img class="dice" src="static/5face.jpg">
+    {% elif dice == 6 %}
+    <img class="dice" src="static/6face.jpg">
+    {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{%block area %}
+
+{% if prompt %}
+<div class="alert alert-dark" role="alert">
+    {{prompt}}
+</div>
+{% endif %}
+
+{% if options %}
+I have added up your dice <br>
+Choose a category within the scoresheet!
+{% endif %}
+{% endblock %}
+
+{% block body %}
+
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th class="col-sm">Name</th>
+        <th class="col-sm">Points</th>
+    </tr>
+    </thead>
+    <tbody>
+
+        <form action="{{ url_for('scorecard') }}" method="post">
+        {% for name, score in score_sheet.items() %}
+            <tr>
+            {% if score == '' and name != '': %}
+                {% if options %}
+                    {% for option, amount in options.items() %}
+                        {% if name == option %}
+                            <td> {{name}} </td>
+                            <td>
+                                <div class="form-check">
+                                <input class="form-check-input" type="radio" name="feedback" id="{{name}}{{amount}}" value="{{option}}">
+                                <label class="form-check-label" for="{{name}}{{amount}}">
+                                    {{amount}}
+                                </label>
+                                </div>
+                            </td>
+                        {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% elif score != '': %}
+            <td scope="col"> {{name}}</td>
+            <td scope="col"> {{score}}</td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+    </tbody>
+</table>
+
+    {% if options %}
+    <button class="btn btn-dark">Enter</button>
+    {% endif %}
+
+        </form>
+
+
+<!--<br>-->
+<!--turn = {{turn}} <br>-->
+<!--dice rolled = {{roll_dice}}<br>-->
+<!--chosen to re-roll = {{feedback}}<br>-->
+<!--keep_dice = {{keep_dice}}<br>-->
+<!--scorecard = {{scorecard}}<br>-->
+<!--options = {{options}}<br>-->
+<!--{% endblock %}}-->

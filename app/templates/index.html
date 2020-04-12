@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+
+
+{% block header %}
+{% if turn == 0: %}
+You get 3 rolls.
+{% elif turn == 1: %}
+You have 2 more rolls.
+{% elif turn == 2: %}
+You have 1 more roll.
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if prompt != ''%}
+<div class="alert alert-dark" role="alert">
+    {{prompt}}
+</div>
+{% endif %}
+Select the dice you want to roll again <br>
+To proceed to scoreboard, select "keep dice"
+{% endblock %}
+
+{% block area %}
+
+<form action="{{ url_for('yahtzee') }}" method="post">
+    <ul class="list">
+        {% for dice in keep_dice%}
+        <li class="form-check list">
+            <label class="form-check-label" for="defaultCheck{{ loop.index }}">
+                {% if dice == 1 %}
+                <img class="dice" src="static/1face.jpg">
+                {% elif dice == 2 %}
+                <img class="dice" src="static/2face.jpg">
+                {% elif dice == 3 %}
+                <img class="dice" src="static/3face.jpg">
+                {% elif dice == 4 %}
+                <img class="dice" src="static/4face.jpg">
+                {% elif dice == 5 %}
+                <img class="dice" src="static/5face.jpg">
+                {% elif dice == 6 %}
+                <img class="dice" src="static/6face.jpg">
+                {% endif %}
+                <br>
+                <input class="form-check-input" type="checkbox" value="{{dice}}" id="defaultCheck{{ loop.index }}" name="feedback">
+
+            </label>
+
+        </li>
+    </ul>
+    {% endfor %}
+    <ul>
+    <li class="index_buttons"><button class="btn btn-dark roll">ROLL AGAIN</button>
+    </li>
+    <li class="index_buttons">
+        <form action="{{ url_for('yahtzee') }}" method="post">
+        <input class="btn btn-dark roll" type="submit" value="keep all dice" name="feedback">
+        </form>
+    </li>
+    </ul>
+</form>
+
+
+{% endblock %}
+
+
+{% block body %}
+
+
+
+
+
+
+<!--<br>-->
+<!--{{feedback}}<br>-->
+<!--turn = {{turn}} <br>-->
+<!--dice rolled = {{roll_dice}}<br>-->
+<!--chosen to re-roll = {{feedback}}<br>-->
+<!--keep_dice = {{keep_dice}}<br>-->
+<!--scorecard = {{scorecard}}<br>-->
+<!--options = {{options}}<br>-->
+<!--{% endblock %}-->
