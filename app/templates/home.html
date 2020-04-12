@@ -9,9 +9,13 @@
     <img class="dice" src='https://media.giphy.com/media/fXgr9UOUAfIfbBIM7z/giphy.gif'>
     <img class="dice" src='https://media.giphy.com/media/fXgr9UOUAfIfbBIM7z/giphy.gif'>
 </div>
+<hr class="my-4">
+
 {% endblock%}
 {% block area %}
-You get up to three rolls <br> Fill out your scoresheet <br>Aim for a YAHTZEE! <br>
+<p class="lead">
+You get up to three rolls <br> Fill out your scoresheet <br> Aim for a YAHTZEE!
+</p>
 <form action="{{ url_for('yahtzee') }}" method="post">
     <input class="btn btn-dark" type="submit" value="ROLL DICE" name="feedback">
 </form>

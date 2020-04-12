@@ -1,6 +1,6 @@
 body
 {
-background-color: pink;
+background-color: gray;
 }
 
 .add_space
@@ -28,20 +28,20 @@ width: 50px;
 
 .list
 {
+padding: 0px;
 display: inline;
 list-style: none;
 }
 
 .jumbotron
 {
-  background-color: hsla(0, 100%, 50%, 0.3);
-;
+  background-color: #51d0de;
 }
 
 .index_buttons
 {
 list-style: none;
-
+margin:0px;
 }
 
 .display-4
@@ -52,6 +52,8 @@ font-weight: Bold;
 
 table
 {
+font-color: white;
+background-color: #fbf579;
 font-family: Courier New;
 font-size: 16px;
 width: 240px;
@@ -95,3 +97,17 @@ font-size: 16px;
 {
 margin-left:25px;
 }
+
+.navbar
+{
+background-color: gray;
+}
+
+.lead
+{
+font-size: 20px;
+line-height: 30px;
+
+}
+
+

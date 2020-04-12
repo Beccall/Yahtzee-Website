@@ -8,16 +8,17 @@
 
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <h1 class="class=col-sm">YAHTZEE!</h1>
-    <a class="navbar-brand" href="{{ url_for('home') }}">
+<nav class="navbar navbar-expand-lg navbar-light">
+    <h1 class="class=col-2">YAHTZEE!</h1>
+
+    <a class="navbar-brand col-9" href="{{ url_for('home') }}">
         Erase Scorecard </a>
 </nav>
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
         <h1 class="display-4">{%block header %} {%endblock%}</h1>
-        <p class="lead">{% block content %}{%endblock %}</p>
+        <p>{% block content %}{%endblock %}</p>
             <p>{% block area %}{% endblock%}</p>
     </div>
 </div>

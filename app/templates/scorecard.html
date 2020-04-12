@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row rows-cols-3">
 
-        <div class="col-6">
+        <div class="col-7">
             {% if not options %}
             <h1>Let's play another round! </h1>
             <form action="{{ url_for('yahtzee') }}" method="post">
@@ -43,7 +43,7 @@
             <p class="lead">
                 {% if options %}
                 I have added up your dice <br>
-                Choose a category within the scoresheet!
+                Choose a category within the scoresheet
                 {% endif %}
             </p>
 
