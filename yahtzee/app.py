@@ -49,7 +49,7 @@ def yahtzee():
             for dice in roll_dice:
                 session["keep_dice"].append(dice)
 
-        if feedback[0] == "keep all dice" or session["turn"] == 3:
+        if feedback[0] == "keep all dice" or session["turn"] >= 3:
             session["turn"] = 0
             # session['scorecard'] = session["play"].score_sheet()
             session["play"].count(session["keep_dice"])
