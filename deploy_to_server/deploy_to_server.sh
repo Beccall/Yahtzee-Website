@@ -30,7 +30,7 @@ git checkout $commit_hash
 pip3 install -r requirements.txt
 
 # start server
-export FLASK_APP=app/app.py
+export FLASK_APP=yahtzee/app.py
 nohup flask run --host=0.0.0.0 --port=5000 &
 
 # hack - flask run needs a little time

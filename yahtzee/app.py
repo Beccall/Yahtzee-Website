@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, url_for
 from flask_session import Session
-from app.dice import Dice
+from yahtzee.dice import Dice
 from werkzeug.utils import redirect
 
 app = Flask(__name__)
@@ -31,7 +31,7 @@ def yahtzee():
         session['scorecard'] = session["play"].score_sheet()
         feedback = request.form.getlist("feedback")
         if not feedback:
-            prompt = "You must select your dice OR press 'Keep all dice'"
+            prompt = "You must select your dice OR press 'Keep all dice"
             feedback = "ROLL AGAIN"
         elif feedback[0] == "ROLL DICE":
             session["turn"] = 1
@@ -40,12 +40,15 @@ def yahtzee():
             for dice in roll_dice:
                 session["keep_dice"].append(dice)
         elif feedback[0] != "ROLL AGAIN" and feedback[0] != "keep all dice" and session["turn"] < 4:
-            for di in feedback:
-                session["keep_dice"].remove(int(di))
-            session["turn"] += 1
-            roll_dice = session["play"].roll(len(feedback))
-            for dice in roll_dice:
-                session["keep_dice"].append(dice)
+            if len(feedback) > 1 and "keep all dice" in feedback:
+                prompt = "You must select your dice OR press 'Keep all dice"
+            else:
+                for di in feedback:
+                    session["keep_dice"].remove(int(di))
+                    session["turn"] += 1
+                    roll_dice = session["play"].roll(len(feedback))
+                    for dice in roll_dice:
+                        session["keep_dice"].append(dice)
         if feedback[0] == "keep all dice" or session["turn"] == 3:
             session["turn"] = 0
             # session['scorecard'] = session["play"].score_sheet()
