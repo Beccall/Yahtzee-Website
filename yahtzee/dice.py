@@ -4,9 +4,10 @@ from collections import OrderedDict
 class Dice:
     def __init__(self):
         self.amount_dice = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
-        self.scored = {"Aces": '', "Twos": '', "Threes": '', "Fours": '', "Fives": '', "Sixes": '', 'BONUS': 0, 'UPPER TOTAL': '', "3 of a Kind": '',
-                       "4 of a Kind": '', "Full House": '', "SM Straight": '', "LG Straight": '', "YAHTZEE": '',
-                       "Chance": '', "YAHTZEE BONUS": 0, 'LOWER TOTAL': 0, 'GRAND TOTAL': 0}
+        self.scored = {"Aces": '', "Twos": '', "Threes": '', "Fours": '', "Fives": '', "Sixes": '', 'BONUS': 0,
+                       'UPPER TOTAL': '', "3 of a Kind": '', "4 of a Kind": '', "Full House": '', "SM Straight": '',
+                       "LG Straight": '', "YAHTZEE": '', "Chance": '', "YAHTZEE BONUS": 0, 'LOWER TOTAL': 0,
+                       'GRAND TOTAL': 0}
         self.list_of_options = ["Aces", "Twos", "Threes", "Fours", "Fives", "Sixes", "3 of a Kind", "4 of a Kind",
                                 "Full House", "SM Straight", "LG Straight", "YAHTZEE", "Chance", "YAHTZEE BONUS"]
 
@@ -17,8 +18,8 @@ class Dice:
             dice.append(randint(1, 6))
         return dice
 
-    def count(self, rolled_dice):
-        for dice in rolled_dice:
+    def count(self, rolled):
+        for dice in rolled:
             self.amount_dice[dice] += 1
         return self.amount_dice
 

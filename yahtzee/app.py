@@ -30,8 +30,11 @@ def yahtzee():
         session["options"] = []
         session['scorecard'] = session["play"].score_sheet()
         feedback = request.form.getlist("feedback")
-        if not feedback:
-            prompt = "You must select your dice OR press 'Keep all dice'"
+        if not feedback or (len(feedback) > 1 and "keep all dice" in feedback):
+            if not feedback:
+                prompt = "To 'Roll Again', you must select dice"
+            else:
+                prompt = "To 'Keep All Dice', you can not select dice"
             feedback = "ROLL AGAIN"
         elif feedback[0] == "ROLL DICE":
             session["turn"] = 1
