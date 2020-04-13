@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, url_for
 from flask_session import Session
-from app.dice import Dice
+from yahtzee.dice import Dice
 from werkzeug.utils import redirect
 
 app = Flask(__name__)
@@ -48,7 +48,6 @@ def yahtzee():
                 session["keep_dice"].append(dice)
         if feedback[0] == "keep all dice" or session["turn"] == 3:
             session["turn"] = 0
-            # session['scorecard'] = session["play"].score_sheet()
             session["play"].count(session["keep_dice"])
             session["options"] = session["play"].options()
 

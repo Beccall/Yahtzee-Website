@@ -1,12 +1,12 @@
 from random import randint
-
+from collections import OrderedDict
 
 class Dice:
     def __init__(self):
         self.amount_dice = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
-        self.scored = {"Aces": '', "Twos": '', "Threes": '', "Fours": '', "Fives": '', "Sixes": '', "3 of a Kind": '',
+        self.scored = {"Aces": '', "Twos": '', "Threes": '', "Fours": '', "Fives": '', "Sixes": '', 'BONUS': 0, 'UPPER TOTAL': '', "3 of a Kind": '',
                        "4 of a Kind": '', "Full House": '', "SM Straight": '', "LG Straight": '', "YAHTZEE": '',
-                       "Chance": '', "YAHTZEE BONUS": 0}
+                       "Chance": '', "YAHTZEE BONUS": 0, 'LOWER TOTAL': 0, 'GRAND TOTAL': 0}
         self.list_of_options = ["Aces", "Twos", "Threes", "Fours", "Fives", "Sixes", "3 of a Kind", "4 of a Kind",
                                 "Full House", "SM Straight", "LG Straight", "YAHTZEE", "Chance", "YAHTZEE BONUS"]
 
@@ -85,19 +85,32 @@ class Dice:
 
         return option
 
+
+
     def score_sheet(self):
-        # upper_section = {}
-        # lower_section = {}
-        # for item in self.list_of_options[0:6]:
-        #     upper_section.update({item: ''})
-        # for item in self.list_of_options[6:]:
-        #     lower_section.update({item: ''})
-        # return lower_section, upper_section
+        count = 0
+        upper_total = 0
+        lower_total = 0
+        for score in self.scored.values():
+            count += 1
+            if score != '':
+                if count <= 7:
+                    upper_total += score
+                if count > 8 and count < 17:
+                    lower_total += score
+        total = upper_total + lower_total
+        self.scored['UPPER TOTAL'] = upper_total
+        self.scored['LOWER TOTAL'] = lower_total
+        self.scored['GRAND TOTAL'] = total
+        if upper_total >= 63:
+            self.scored['BONUS'] = 35
         return self.scored
+        # return f"{self.scored}, \n  {upper_total}, \n {lower_total}, \n {total}"
 
     def add_score(self, choice, amount):
         self.scored[choice] = amount
-        return self.scored
+        return self.score_sheet()
+
 
     def score_show(self):
         visible_scores = {}
@@ -106,13 +119,10 @@ class Dice:
                 visible_scores.update({name: score})
         return visible_scores
 
-# game = Dice()
-# rolled_dice = [3, 3, 5, 3, 5]
-# print(game.count(rolled_dice))
-# print(game.options())
-#
-# rolled_dice = [1, 1, 1, 1, 1]
-# print(game.count(rolled_dice))
-# print(game.options())
-# print(game.score_sheet())
+game = Dice()
+
+rolled_dice = [1, 1, 1, 1, 1]
+print(game.count(rolled_dice))
+print(game.options())
+print(game.score_sheet())
 
