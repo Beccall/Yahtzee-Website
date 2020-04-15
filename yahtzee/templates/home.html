@@ -28,9 +28,15 @@
         <div class="row">
             <div class="col">
                 {% if score_sheet %}
-                    <form action="{{ url_for('yahtzee') }}" method="get">
-                        <button class="btn btn-light" type="submit"> Continue Game </button>
-                    </form>
+                    {% if turn < 3 %}
+                        <form action="{{ url_for('yahtzee') }}" method="get">
+                            <button class="btn btn-light" type="submit"> Continue Game </button>
+                        </form>
+                    {% else %}
+                        <form action="{{ url_for('scorecard') }}" method="get">
+                            <button class="btn btn-light" type="submit"> Continue Game </button>
+                        </form>
+                    {% endif %}
                     <form action="{{ url_for('home') }}" method="post">
                         <input class="btn btn-light" type="submit" value="CLEAR SCOREBOARD" name="feedback">
                     </form>

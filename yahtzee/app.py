@@ -12,19 +12,21 @@ Session(app)
 
 @app.route('/', methods=["GET", "POST"])
 def home():
+
     if request.method == "GET":
-        return render_template('home.html', score_sheet=session['scorecard'])
+        return render_template('home.html', score_sheet=session['scorecard'], turn=session['turn'])
 
     if request.method == "POST":
         if session['scorecard']:
             feedback = request.form.get('feedback')
             if feedback == "CLEAR SCOREBOARD":
                 session.clear()
+                session['turn'] = 0
                 session['scorecard'] = []
                 session["play"] = Dice()
         else:
             session['scorecard'] = []
-        return render_template('home.html', score_sheet=session['scorecard'])
+        return render_template('home.html', score_sheet=session['scorecard'], turn=session['turn'])
 
 
 
@@ -61,7 +63,7 @@ def yahtzee():
             for dice in session['roll_dice']:
                 session["keep_dice"].append(dice)
         if feedback[0] == "keep all dice" or session["turn"] == 3:
-            session["turn"] = 0
+            session['turn'] = 3
             session["play"].count(session["keep_dice"])
             session["options"] = session["play"].options()
 
@@ -79,6 +81,7 @@ def scorecard():
         return render_template('scorecard.html', keep_dice=session["keep_dice"], options=session["options"],
                                score_sheet=session['scorecard'])
     if request.method == "POST":
+        session["turn"] = 0
         feedback = request.form.get('feedback')
         if not feedback:
             prompt = "You must select a category"
@@ -97,3 +100,4 @@ def scorecard():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
