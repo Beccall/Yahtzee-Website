@@ -3,11 +3,11 @@
 
 {% block header %}
 <div class="container">
-    <div class="row rows-cols-3">
-        <div class="col-7">
+    <div class="row">
+        <div class="col-sm">
             <p>
             {% if turn == 0: %}
-            You get 3 rolls.
+            Let's play another round! You get 3 rolls.
             {% elif turn == 1: %}
             You have 2 more rolls.
             {% elif turn == 2: %}
@@ -16,18 +16,18 @@
             </p>
             <p>
                 {% if prompt != ''%}
-            <div class="alert alert-dark" role="alert">
+            <div class="alert alert-warning" role="alert">
                 {{prompt}}
             </div>
             {% endif %}
             </p>
+            {% if turn > 0 %}
             <p class="lead">
                 Select the dice you want to roll again <br>
                 To proceed to scoreboard, select "Keep all dice"
 
             </p>
             <hr class="my-4">
-
             <form action="{{ url_for('yahtzee') }}" method="post">
                 <ul class="list" >
                     {% for dice in keep_dice%}
@@ -48,22 +48,26 @@
                             {% endif %}
                             <br>
                             <input class="form-check-input dice-check" type="checkbox" value="{{dice}}" id="defaultCheck{{ loop.index }}" name="feedback">
-
                         </label>
-
                     </li>
                     {% endfor %}
-                    <li class="list"><button class="btn btn-dark roll">ROLL AGAIN</button></li>
+                    <li class="list"><button class="btn btn-light roll">ROLL AGAIN</button></li>
                     <li class="list" action="{{ url_for('yahtzee') }}" method="post">
                         <input class="btn btn-dark roll" type="submit" value="keep all dice" name="feedback">
                     </li>
                 </ul>
             </form>
+            {% else %}
+            <form action="{{ url_for('yahtzee') }}" method="post">
+                <button class="btn btn-light" type="submit" value="ROLL DICE" name="feedback"> ROLL DICE </button>
+            </form>
+            {% endif %}
+
 
 
 
         </div>
-        <div class="col-3">
+        <div class="col-5">
             <table class="table-bordered">
                 <thead>
                 <tr>
@@ -74,11 +78,17 @@
                 <tbody>
                 {% for name, score in score_sheet.items() %}
                 <tr>
-                    <td> {{name}} </td>
-                    {% if score == '' %}
-                    <td> --- </td>
+                    {% if name == "GRAND TOTAL" or name == "UPPER TOTAL" or name == "LOWER TOTAL" %}
+                        <td class="bold"> {{name}} </td>
+                        <td class="bold"> {{score}}</td>
+
                     {% else %}
-                    <td> {{ score}} </td>
+                    <td> {{name}} </td>
+                        {% if score == '' %}
+                        <td> --- </td>
+                        {% else %}
+                        <td> {{score}} </td>
+                        {% endif %}
                     {% endif %}
                 </tr>
                 {% endfor %}

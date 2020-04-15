@@ -10,22 +10,33 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 
-@app.route('/', methods=["GET"])
+@app.route('/', methods=["GET", "POST"])
 def home():
-    session.clear()
-    session["play"] = Dice()
-    return render_template('home.html')
+    if request.method == "GET":
+        return render_template('home.html', score_sheet=session['scorecard'])
+
+    if request.method == "POST":
+        if session['scorecard']:
+            feedback = request.form.get('feedback')
+            if feedback == "CLEAR SCOREBOARD":
+                session.clear()
+                session['scorecard'] = []
+                session["play"] = Dice()
+        else:
+            session['scorecard'] = []
+        return render_template('home.html', score_sheet=session['scorecard'])
+
 
 
 @app.route("/yahtzee", methods=["GET", "POST"])
 def yahtzee():
     count = 0
-    roll_dice = ''
+    session['roll_dice'] = ''
     prompt = ''
     if request.method == "GET":
-        session["turn"] = 0
-        session["keep_dice"] = []
-        return render_template("index.html", turn=session["turn"])
+        return render_template("index.html", roll_dice=session['roll_dice'], turn=session["turn"],
+                               keep_dice=session["keep_dice"], score_sheet=session["scorecard"],
+                               prompt=prompt, options=session["options"], count=count)
     if request.method == "POST":
         session["options"] = []
         session['scorecard'] = session["play"].score_sheet()
@@ -38,16 +49,16 @@ def yahtzee():
             feedback = "ROLL AGAIN"
         elif feedback[0] == "ROLL DICE":
             session["turn"] = 1
-            roll_dice = session["play"].roll(5)
+            session['roll_dice'] = session["play"].roll(5)
             session["keep_dice"] = []
-            for dice in roll_dice:
+            for dice in session['roll_dice']:
                 session["keep_dice"].append(dice)
         elif feedback[0] != "ROLL AGAIN" and feedback[0] != "keep all dice" and session["turn"] < 4:
             for di in feedback:
                 session["keep_dice"].remove(int(di))
             session["turn"] += 1
-            roll_dice = session["play"].roll(len(feedback))
-            for dice in roll_dice:
+            session['roll_dice'] = session["play"].roll(len(feedback))
+            for dice in session['roll_dice']:
                 session["keep_dice"].append(dice)
         if feedback[0] == "keep all dice" or session["turn"] == 3:
             session["turn"] = 0
@@ -56,7 +67,7 @@ def yahtzee():
 
             return redirect('/scorecard')
 
-        return render_template("index.html", feedback=feedback, roll_dice=roll_dice, turn=session["turn"],
+        return render_template("index.html", feedback=feedback, roll_dice=session['roll_dice'], turn=session["turn"],
                                keep_dice=session["keep_dice"], score_sheet=session["scorecard"],
                                prompt=prompt, options=session["options"], count=count)
 

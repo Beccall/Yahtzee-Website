@@ -43,7 +43,8 @@
             <p class="lead">
                 {% if options %}
                 I have added up your dice <br>
-                Choose a category within the scoresheet
+                Choose a category within the score sheet <br>
+                if Upper Section score is over 63, get a 35 point bonus.
                 {% endif %}
             </p>
 
@@ -78,10 +79,17 @@
                         {% endif %}
                         {% endfor %}
                         {% endif %}
+
                         {% elif score != '': %}
-                        <td> {{name}}</td>
-                        <td> {{score}}</td>
-                        <td> x </td>
+                            {% if name == "GRAND TOTAL" or name == "UPPER TOTAL" or name == "LOWER TOTAL" %}
+                                <td class="bold"> {{name}}</td>
+                                <td class="bold"> {{score}}</td>
+                                <td> </td>
+                            {% else %}
+                                <td> {{name}}</td>
+                                <td> {{score}}</td>
+                                <td> x </td>
+                            {% endif %}
                         {% endif %}
                         {% endfor %}
                     </tr>
@@ -89,7 +97,7 @@
             </table>
 
             {% if options %}
-            <button class="btn btn-dark">Enter</button>
+            <button class="btn btn-light">Enter</button>
             {% endif %}
 
             </form>

@@ -110,4 +110,16 @@ line-height: 30px;
 
 }
 
+.erase
+{
+margin-top:8px;
+padding: 2px;
+border-style: solid;
+}
+
+.bold
+{
+font-weight: bold;
+
+}
 
