@@ -126,3 +126,16 @@ font-weight: bold;
 .navbar-brand{
     font-size: 40px;
 }
+
+.option{
+    color: red;
+}
+
+tr:hover {
+    background-color: #ffa;
+}
+
+input[type="checkbox"] {
+    opacity: 100;
+}
+

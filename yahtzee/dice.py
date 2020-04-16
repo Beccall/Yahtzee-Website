@@ -49,8 +49,14 @@ class Dice:
                 option[self.list_of_options[7]] = total
             if amount == 5:
                 if self.scored["YAHTZEE"] == 50:
+                    if self.scored['YAHTZEE BONUS'] == 0:
+                        option[self.list_of_options[13]] = 100
+                    elif self.scored['YAHTZEE BONUS'] == 100:
+                        option[self.list_of_options[13]] = 200
+                    elif self.scored['YAHTZEE BONUS'] == 200:
+                        option[self.list_of_options[13]] = 300
                     self.scored["YAHTZEE BONUS"] = ''
-                    option[self.list_of_options[13]] += 100
+
                 else:
                     option[self.list_of_options[11]] = 50
             # full house
@@ -86,8 +92,6 @@ class Dice:
 
         return option
 
-
-
     def score_sheet(self):
         count = 0
         upper_total = 0
@@ -95,16 +99,19 @@ class Dice:
         for score in self.scored.values():
             count += 1
             if score != '':
-                if count <= 7:
+                if count < 7:
                     upper_total += score
                 if count > 8 and count < 17:
                     lower_total += score
+        if upper_total >= 63:
+            self.scored['BONUS'] = 35
+            upper_total += 35
         total = upper_total + lower_total
         self.scored['UPPER TOTAL'] = upper_total
         self.scored['LOWER TOTAL'] = lower_total
         self.scored['GRAND TOTAL'] = total
-        if upper_total >= 63:
-            self.scored['BONUS'] = 35
+
+
         return self.scored
         # return f"{self.scored}, \n  {upper_total}, \n {lower_total}, \n {total}"
 

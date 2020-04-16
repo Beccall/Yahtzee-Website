@@ -67,13 +67,13 @@
                         {% if options %}
                         {% for option, amount in options.items() %}
                         {% if name == option %}
-                        <td> {{name}} </td>
-                        <td>
+                        <td class="option"> {{name}} </td>
+                        <td class="option">
                             <label class="point-option" for="{{name}}{{amount}}">
                                 {{amount}}
                             </label>
                         </td>
-                        <td>
+                        <td class="option">
                             <input  type="radio" name="feedback" id="{{name}}{{amount}}" value="{{option}}">
                         </td>
                         {% endif %}

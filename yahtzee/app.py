@@ -13,6 +13,15 @@ Session(app)
 @app.route('/', methods=["GET", "POST"])
 def home():
 
+    if 'play' not in session:
+        session["play"] = Dice()
+
+    if 'scorecard' not in session:
+        session['scorecard'] = []
+
+    if 'turn' not in session:
+        session['turn'] = 0
+
     if request.method == "GET":
         return render_template('home.html', score_sheet=session['scorecard'], turn=session['turn'])
 
