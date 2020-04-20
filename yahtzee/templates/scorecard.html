@@ -1,113 +1,115 @@
 {% extends "layout.html" %}
 
-{%block header%}
-<div class="container">
-    <div class="row">
+{% block title%}
+    {% if not options and '' in score_sheet.values() %}
+        Let's play another round!
+    {% endif %}
+    {% if '' not in score_sheet.values() %}
+        Game over! <br> Your Score: {{score_sheet['GRAND TOTAL']}}
+    {% endif %}
+    {% if keep_dice and '' in score_sheet.values() %}
+        Your final dice:
+    {% endif %}
+{% endblock %}
 
-        <div class="col-7">
-            {% if not options %}
-            <h1>Let's play another round! </h1>
-            <form action="{{ url_for('yahtzee') }}" method="post">
-                <input class="btn btn-dark roll" type="submit" value="ROLL DICE" name="feedback">
-            </form>
-            {%endif%}
-            {% if keep_dice %}
-            Your final dice:
-            {% endif %}
-
-            <p class="final_dice">
-            {% for dice in keep_dice %}
-            {% if dice == 1 %}
+{% block dice %}
+    {% if '' in score_sheet.values() %}
+    {% for dice in keep_dice %}
+        {% if dice == 1 %}
             <img class="dice" src="static/1face.jpg">
-            {% elif dice == 2 %}
+        {% elif dice == 2 %}
             <img class="dice" src="static/2face.jpg">
-            {% elif dice == 3 %}
+        {% elif dice == 3 %}
             <img class="dice" src="static/3face.jpg">
-            {% elif dice == 4 %}
+        {% elif dice == 4 %}
             <img class="dice" src="static/4face.jpg">
-            {% elif dice == 5 %}
+        {% elif dice == 5 %}
             <img class="dice" src="static/5face.jpg">
-            {% elif dice == 6 %}
+        {% elif dice == 6 %}
             <img class="dice" src="static/6face.jpg">
-            {% endif %}
-            {% endfor %}
-            </p>
-            <hr class="my-4">
+        {% endif %}
+    {% endfor %}
+    {% endif %}
+{% endblock %}
 
-            {% if prompt %}
-            <P
-                class="alert alert-warning" role="alert">
-                {{prompt}}
-            </P>
+{% block message %}
+    {% if options and '' in score_sheet.values() %}
+        I have added up your dice <br>
+        Choose a category within the score sheet <br>
+        if Upper Section score is over 63, get a 35 point bonus
+    {% endif %}
+{% endblock %}
+
+{% block button %}
+    {% if not options and '' in score_sheet.values() %}
+        <form action="{{ url_for('yahtzee') }}" method="post">
+            <button class="btn" type="submit" value="ROLL DICE" name="feedback"> Roll Dice </button>
+        </form>
+    {% elif '' not in score_sheet.values() %}
+        <form action="{{ url_for('home') }}" method="post">
+            <button class="btn" type="submit" value="CLEAR SCOREBOARD" name="feedback"> Start Over</button>
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block table %}
+    <table class="table-bordered">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Points</th>
+            {% if '' in score_sheet.values() %}
+            <th>Add</th>
             {% endif %}
-            <p class="lead">
+        </tr>
+        </thead>
+        <tbody>
+
+        <form action="{{ url_for('scorecard') }}" method="post">
+            {% for name, score in score_sheet.items() %}
+            <tr>
+                {% if score == '' and name != '': %}
                 {% if options %}
-                I have added up your dice <br>
-                Choose a category within the score sheet <br>
-                if Upper Section score is over 63, get a 35 point bonus.
+                {% for option, amount in options.items() %}
+                {% if name == option %}
+                <td class="option"> {{name}} </td>
+                <td class="option">
+                    <label for="{{name}}{{amount}}">
+                        {{amount}}
+                    </label>
+                </td>
+                <td class="option">
+                    <input  type="radio" name="feedback" id="{{name}}{{amount}}" value="{{option}}">
+                </td>
                 {% endif %}
-            </p>
+                {% endfor %}
+                {% endif %}
 
-        </div>
-        <div class="col-5">
-            <table class="table-bordered">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Points</th>
-                    <th>Add</th>
-                </tr>
-                </thead>
-                <tbody>
+                {% elif score != '': %}
+                    {% if name == "GRAND TOTAL" or name == "UPPER TOTAL" or name == "LOWER TOTAL" %}
+                        <td class="score"> {{name}}</td>
+                        <td class="score"> {{score}}</td>
+                    {% if '' in score_sheet.values() %}
+                        <td> </td>
+                    {% endif %}
+                    {% else %}
+                        <td> {{name}}</td>
+                        <td> {{score}}</td>
+                    {% if '' in score_sheet.values() %}
+                    <td> x </td>
+                    {% endif %}
+                    {% endif %}
+                {% endif %}
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    {% if options and '' in score_sheet.values() %}
+    <button class="btn" id="scoreboard-enter">Enter</button>
+    {% endif %}
 
-                <form action="{{ url_for('scorecard') }}" method="post">
-                    {% for name, score in score_sheet.items() %}
-                    <tr>
-                        {% if score == '' and name != '': %}
-                        {% if options %}
-                        {% for option, amount in options.items() %}
-                        {% if name == option %}
-                        <td class="option"> {{name}} </td>
-                        <td class="option">
-                            <label class="point-option" for="{{name}}{{amount}}">
-                                {{amount}}
-                            </label>
-                        </td>
-                        <td class="option">
-                            <input  type="radio" name="feedback" id="{{name}}{{amount}}" value="{{option}}">
-                        </td>
-                        {% endif %}
-                        {% endfor %}
-                        {% endif %}
-
-                        {% elif score != '': %}
-                            {% if name == "GRAND TOTAL" or name == "UPPER TOTAL" or name == "LOWER TOTAL" %}
-                                <td class="bold"> {{name}}</td>
-                                <td class="bold"> {{score}}</td>
-                                <td> </td>
-                            {% else %}
-                                <td> {{name}}</td>
-                                <td> {{score}}</td>
-                                <td> x </td>
-                            {% endif %}
-                        {% endif %}
-                        {% endfor %}
-                    </tr>
-                </tbody>
-            </table>
-
-            {% if options %}
-            <button class="btn btn-light">Enter</button>
-            {% endif %}
-
-            </form>
-
-        </div>
-    </div>
-</div>
-{% endblock%}
-
-
+    </form>
+{% endblock %}
 
 
 

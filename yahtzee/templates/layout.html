@@ -6,25 +6,54 @@
     <link href="/static/style.css" rel="stylesheet">
 </head>
 
-
 <body>
-    <div class="container navbar-light">
-        <div class="row">
-            <div class="col-sm"><a class='navbar-brand' href= {{url_for('home')}} >YAHTZEE!</a></div>
-        </div>
-    </div>
 
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1>{%block header %} {%endblock%}</h1>
-        <p>{% block content %}{%endblock %}</p>
-            <p>{% block area %}{% endblock%}</p>
+<div class="container navbar-light">
+    <div class="row">
+        <div class="col-sm"><a class='navbar-brand title' href= {{url_for('home')}} >YAHTZEE!</a></div>
+    </div>
+</div>
+<div class="container-full-bg jumbotron">
+    <div class="row">
+        <div class="col-7" id="layout-main">
+            <h1 id="layout-title">{% block title %} {% endblock%}</h1>
+
+            <div class="row" >
+                <div class="col">
+                    {% block dice %} {% endblock %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <hr class="my-4">
+                    {% if prompt %}
+                    <div class="alert" role="alert">
+                        {{prompt}}
+                    </div>
+                    {% endif %}
+                    <p class="message">
+                        {% block message %} {% endblock %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col" id="layout-buttons">
+                    {% block button %} {% endblock %}
+                </div>
+            </div>
+
+
+        </div>
+        {% if score_sheet %}
+        <div class="col jumbotron" id="layout-table">
+            {% block table %} {% endblock %}
+        </div>
+        {% endif %}
+
     </div>
 </div>
 
-
-
-{% block body %}
-{% endblock %}
 </body>
 </html>

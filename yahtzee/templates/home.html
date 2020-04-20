@@ -1,90 +1,73 @@
 {% extends "layout.html" %}
 
-{% block header %}
-<div class="container">
-<div class="row">
-    <div class="col-7">
-        <h1>Let's Play YAHTZEE!</h1>
-        <div class="row">
-            <div class="col-7">
-                <img class="dice" src='https://media.giphy.com/media/fXgr9UOUAfIfbBIM7z/giphy.gif'>
-                <img class="dice" src='https://media.giphy.com/media/fXgr9UOUAfIfbBIM7z/giphy.gif'>
-                <img class="dice" src='https://media.giphy.com/media/fXgr9UOUAfIfbBIM7z/giphy.gif'>
-                <img class="dice" src='https://media.giphy.com/media/fXgr9UOUAfIfbBIM7z/giphy.gif'>
-                <img class="dice" src='https://media.giphy.com/media/fXgr9UOUAfIfbBIM7z/giphy.gif'>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col"
-                <br><hr class="my-4">
-                <p class="lead">
-                You get up to three rolls <br> Fill out your scoresheet <br> Aim for a YAHTZEE!
-                </p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                {% if score_sheet %}
-                    {% if turn < 3 %}
-                        <form action="{{ url_for('yahtzee') }}" method="get">
-                            <button class="btn btn-light" type="submit"> Continue Game </button>
-                        </form>
-                    {% else %}
-                        <form action="{{ url_for('scorecard') }}" method="get">
-                            <button class="btn btn-light" type="submit"> Continue Game </button>
-                        </form>
-                    {% endif %}
-                    <form action="{{ url_for('home') }}" method="post">
-                        <input class="btn btn-light" type="submit" value="CLEAR SCOREBOARD" name="feedback">
-                    </form>
-                {% else %}
-                    <form action="{{ url_for('yahtzee') }}" method="post">
-                        <button class="btn btn-light" type="submit" value="ROLL DICE" name="feedback"> Roll Dice </button>
-                    </form>
-                {% endif %}
-
-            </div>
-        </div>
-
-    </div>
-
-
-
-
-{% if score_sheet %}
-<div class="col-5">
-    <table class="table-bordered">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Points</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for name, score in score_sheet.items() %}
-        <tr>
-            {% if name == "GRAND TOTAL" or name == "UPPER TOTAL" or name == "LOWER TOTAL" %}
-            <td class="bold"> {{name}} </td>
-            <td class="bold"> {{score}}</td>
-
-            {% else %}
-            <td> {{name}} </td>
-            {% if score == '' %}
-            <td> --- </td>
-            {% else %}
-            <td> {{score}} </td>
-            {% endif %}
-            {% endif %}
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% endif %}
-</div>
-</div>
-
+{% block title %}
+    Let's Play YAHTZEE!
 {% endblock %}
+
+{% block dice %}
+    <img class="dice" src='https://media.giphy.com/media/fXgr9UOUAfIfbBIM7z/giphy.gif'>
+    <img class="dice" src='https://media.giphy.com/media/fXgr9UOUAfIfbBIM7z/giphy.gif'>
+    <img class="dice" src='https://media.giphy.com/media/fXgr9UOUAfIfbBIM7z/giphy.gif'>
+    <img class="dice" src='https://media.giphy.com/media/fXgr9UOUAfIfbBIM7z/giphy.gif'>
+    <img class="dice" src='https://media.giphy.com/media/fXgr9UOUAfIfbBIM7z/giphy.gif'>
+{% endblock %}
+
+{% block message %}
+    You get up to three rolls <br>
+    Fill out your score sheet <br>
+    Aim for a YAHTZEE!<br>
+{% endblock %}
+
+{% block button %}
+{% if score_sheet %}
+    {% if turn < 3 %}
+        <form class="home-buttons"action="{{ url_for('yahtzee') }}" method="get">
+            <button class="btn" type="submit"> Continue Game </button>
+        </form>
+    {% else %}
+        <form class="home-buttons" action="{{ url_for('scorecard') }}" method="get">
+            <button class="btn" type="submit"> Continue Game </button>
+        </form>
+    {% endif %}
+       <form class="home-buttons" action="{{ url_for('home') }}" method="post">
+            <button class="btn" type="submit" value="CLEAR SCOREBOARD" name="feedback"> Clear Scoreboard</button>
+       </form>
+{% else %}
+    <form class="home-buttons" action="{{ url_for('yahtzee') }}" method="post">
+        <button class="btn" type="submit" value="ROLL DICE" name="feedback"> Roll Dice </button>
+    </form>
+
+{% endif %}
+{% endblock %}
+
+
+{% block table %}
+            <table class="table-bordered">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for name, score in score_sheet.items() %}
+                <tr>
+                    {% if name == "GRAND TOTAL" or name == "UPPER TOTAL" or name == "LOWER TOTAL" %}
+                    <td class="score"> {{name}} </td>
+                    <td class="score"> {{score}}</td>
+
+                    {% else %}
+                    <td> {{name}} </td>
+                    {% if score == '' %}
+                    <td> --- </td>
+                    {% else %}
+                    <td> {{score}} </td>
+                    {% endif %}
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+{% endblock %}
+
 

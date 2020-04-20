@@ -49,14 +49,15 @@ class Dice:
                 option[self.list_of_options[7]] = total
             if amount == 5:
                 if self.scored["YAHTZEE"] == 50:
-                    if self.scored['YAHTZEE BONUS'] == 0:
+                    if self.scored['YAHTZEE BONUS'] == 0 or self.scored["YAHTZEE BONUS"] == '':
                         option[self.list_of_options[13]] = 100
+                        self.scored["YAHTZEE BONUS"] = ''
                     elif self.scored['YAHTZEE BONUS'] == 100:
                         option[self.list_of_options[13]] = 200
+                        self.scored["YAHTZEE BONUS"] = ''
                     elif self.scored['YAHTZEE BONUS'] == 200:
                         option[self.list_of_options[13]] = 300
-                    self.scored["YAHTZEE BONUS"] = ''
-
+                        self.scored["YAHTZEE BONUS"] = ''
                 else:
                     option[self.list_of_options[11]] = 50
             # full house

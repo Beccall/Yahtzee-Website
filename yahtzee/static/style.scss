@@ -1,51 +1,70 @@
 @font-face {
   font-family: "Roboto-Thin";
-  src: url(Roboto-Thin.ttf);
+  src: url(Roboto-Thin.ttf)
 }
 @font-face {
   font-family: "Roboto-MediumItalic";
-  src: url(Roboto-MediumItalic.ttf);
+  src: url(Roboto-MediumItalic.ttf)
 }
 @font-face {
   font-family: "Roboto-Black";
-  src: url(Roboto-Black.ttf);
+  src: url(Roboto-Black.ttf)
 }
 @font-face {
   font-family: "Roboto-Light";
-  src: url(Roboto-Light.ttf);
+  src: url(Roboto-Light.ttf)
 }
+
+$background-color: #6CDAEE;
+$table-font: 'Courier New';
+$table-color: #fbf579;
+$table-hover-color: #ffa;
+$background-color-body: #fedc3d;
+$option-color: red;
+$navbar-font: "Roboto-MediumItalic";
+$body-font: "Roboto-Light";
+$title-font: "Roboto-Black";
+$message-font: "Roboto-Thin";
+
+
 body {
   color: black;
   background-color: #ffffaa;
-  font-family: "Roboto-Light";
+  font-family: $body-font;
 }
 
-.jumbotron {
+.jumbotron
+{
   padding-top: 0;
   background-color: #fedc3d;
 }
-
 .container-full-bg .jumbotron {
   background-color: #6CDAEE;
 }
 
-#layout-title {
+#layout-title{
   font-size: 60px;
-  font-family: "Roboto-Black";
+  font-family: $title-font;
 }
 
-#layout-main {
+#layout-main{
   text-align: center;
   margin-left: 50px;
   margin-top: 120px;
 }
 
-.navbar-brand {
+//navbar properties
+
+.navbar-brand{
   font-size: 40px;
-  font-family: "Roboto-MediumItalic";
+  font-family: $navbar-font;
 }
 
-.jumbotron#layout-table {
+
+
+//Table properties
+
+.jumbotron#layout-table{
   margin-right: 60px;
   margin-top: 30px;
 }
@@ -55,95 +74,103 @@ body {
   margin-right: auto;
   margin-left: auto;
 }
-
-table {
-  background-color: #fbf579;
-  font-family: "Courier New";
+table
+{
+  background-color: $table-color;
+  font-family: $table-font;
   font-size: 16px;
   width: 240px;
 }
-
-.score {
+.score{
   font-weight: bold;
 }
 
-td {
+td
+{
   height: 25px;
   padding-left: 10px;
 }
 
 tr:hover {
-  background-color: #ffa;
+  background-color: $table-hover-color;
 }
 
-.option {
-  color: red;
+.option{
+  color: $option-color;
 }
 
-.dice {
+//dice properties
+
+.dice
+{
   margin: 8px;
   width: 50px;
 }
 
-#dice-gif {
+#dice-gif{
   text-align: center;
 }
 
-.form-check-input {
+.form-check-input
+{
   margin-left: -5px;
 }
 
-.list {
+.list
+{
   padding: 0;
   display: inline;
   list-style: none;
 }
 
-.message {
+//message properties
+
+.message
+{
   padding-left: 50px;
   padding-top: 25px;
   padding-bottom: 30px;
-  font-family: "Roboto-Thin";
+  font-family: $message-font;
   font-weight: bold;
   text-align: left;
   font-size: 24px;
   line-height: 40px;
 }
 
-.alert {
+.alert
+{
   background-color: #ffffaa;
   font-size: 18px;
   font-weight: bold;
   text-align: center;
 }
 
-.btn {
+//button properties
+.btn{
   height: 50px;
   width: 200px;
   margin-right: 30px;
   font-size: 20px;
 }
 
-#layout-buttons {
+#layout-buttons{
   text-align: left;
   padding-left: 60px;
 }
-
-.home-buttons {
+.home-buttons{
   display: inline-block;
 }
 
-#scoreboard-enter {
+#scoreboard-enter{
   margin-left: 15%;
   margin-top: 10px;
   width: 240px;
 }
 
-.btn {
+.btn{
   color: black;
   background-color: coral;
   border-color: coral;
-  border-width: 3px;
+  border-width: 3px ;
 }
 
-/*# sourceMappingURL=style.css.map */
