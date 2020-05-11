@@ -13,11 +13,11 @@ Required packages: `flask`, `flask_session`, `werkzeug`
 
 ### Run Application
 
-####Deploy to server: 
+****Deploy to server: 
  
 `deploy_to_server/deploy_to_server.sh <commit hash here>`
 
-####Local: 
+****Local: 
 
 export app to flask: `export FlASK_APP=app.py`  
  
