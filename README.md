@@ -1,17 +1,17 @@
-#Yahtzee
+# Yahtzee
 
 A web program for the game of Yahtzee.
 
-##Getting Started
+## Getting Started
 
-###Prerequisites
+### Prerequisites
 Program runs using `Python3.7`  
 Required packages: `flask`, `flask_session`, `werkzeug`
 
-###Install packages
+### Install packages
 `pip install -r requirements.txt`
 
-###Run Application
+### Run Application
 
 Deploy to server: 
  
