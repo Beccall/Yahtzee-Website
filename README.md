@@ -23,4 +23,4 @@ export app to flask: `export FlASK_APP=app.py`
  
 turn on debug mode: `export FLASK_ENV=development` 
  
-run app: `runflask`
+run app: `flask run`
